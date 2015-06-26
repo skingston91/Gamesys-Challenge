@@ -17,12 +17,10 @@ function GenerateRacers(amountOfRacers)
 		var height = i + 10;
 		var actor = new Actor(height,5);
 		actor.name = "Racer" + i; // Hopefully will change this to random name generator
-		alert(actor.name);
 		actor.stats = GenerateStats(racerStatsValues); // gets us the Racers racing stats (unused currently)
 		var racerValue = CalculateStats(actor.stats); // create the one value we will use for the speed
 		actor.odds = CalculateOdds(racerValue)	;
 		actor.speed = CalculateRacerSpeed(CalculateTrueStats(racerValue));
-		alert(actor.speed);
 		racers[i] = actor;
   }
 	
@@ -34,7 +32,7 @@ function GenerateStats(statsRequired)
 {
 	var statsArray = [];
 	for(o = 0; o < statsRequired; o++){
-		statsArray[o] = CalculateRandomElement()
+		statsArray[o] = CalculateRandomElement(maxStatsRange)
 	}
 	
 	return statsArray;
@@ -66,26 +64,23 @@ function CalculateOdds(racerValue)
 	var maxPossibleRacerValue = racerStatsValues * maxStatsRange;
 	if(racerValue >= maxPossibleRacerValue/2  && racerValue <= maxPossibleRacerValue)
 	{
-			alert(racerValue);
 			return "Looking Good";
 	}
 	if (racerValue >= 0 && racerValue < maxPossibleRacerValue/2 )
 	{
-		alert(racerValue);
 		return "*Cough";
 	}
 	else
 	{
-		alert(racerValue);
 		return "MAMMA MIA";
 	}
 	
 }
 
-// Makes a random number between one and 100
-function CalculateRandomElement()
+// Makes a random number between one and maxRange
+function CalculateRandomElement(maxRange)
 {
-	return Math.floor((Math.random() * maxStatsRange) + 1);
+	return Math.floor((Math.random() * maxRange) + 1);
 }
 
 // Adds a random value to the true stats 
