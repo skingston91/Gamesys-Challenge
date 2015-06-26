@@ -9,11 +9,27 @@ $(document).ready(function(){
 	var height = $("#canvas").height();
 	
 
-	init();
-	//Initialise the game
-	function init()
+	Initialise();
+	//Initialise the game starting at the menu
+	function Initialise()
 	{
-		paintBorder(context,width,height);
+		ClearScreen(context,width,height)
 	}
 	
-	})
+	function StartGame()
+	{
+		
+	}
+	
+	function UpdateGame()
+	{
+	
+	}
+	
+	function ExitGame()
+	{
+		ShowMenu(context,width,height);
+	}
+	
+	
+})
