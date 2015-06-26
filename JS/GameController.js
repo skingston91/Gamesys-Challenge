@@ -13,7 +13,8 @@ $(document).ready(function(){
 	//Initialise the game starting at the menu
 	function Initialise()
 	{
-		ClearScreen(context,width,height)
+		ClearScreen(context,width,height);
+		GenerateRacers(7);
 	}
 	
 	function StartGame()
