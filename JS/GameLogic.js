@@ -11,20 +11,18 @@ function GenerateRacers(amountOfRacers)
 		var actor = new Actor(height,5);
 		actor.name = "Racer" + i; // Hopefully will change this to random name generator
 		alert(actor.name);
-		//actor.stats = GenerateStats(5); // gets us the Racers racing stats 
+		actor.stats = GenerateStats(5); // gets us the Racers racing stats 
 		racers[i] = actor;
 		
   }
 }
 //Will generate an array of random numbers the length we pass it
-// Currently Broken 
 function GenerateStats(statsRequired)
 {
 	var statsArray = [];
-	for(i=0; i < statsRequired; i++){
-		//alert([i]);
-		//statsArray[i] = CalculateRandomElement()
-		//alert(statsArray[i]);
+	for(o = 0; o < statsRequired; o++){
+		statsArray[o] = CalculateRandomElement()
+		alert(statsArray[o]);
 	}
 	
 	return statsArray;
