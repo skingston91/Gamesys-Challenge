@@ -8,17 +8,18 @@ $(document).ready(function(){
 	var width = $("#canvas").width();
 	var height = $("#canvas").height();
 	
-
 	Initialise();
 	//Initialise the game starting at the menu
 	function Initialise()
 	{
 		ClearScreen(context,width,height);
-		GenerateRacers(7);
+		StartGame();
+		
 	}
 	
 	function StartGame()
 	{
+		GenerateRacers(7);
 		
 	}
 	
@@ -31,6 +32,7 @@ $(document).ready(function(){
 	{
 		ShowMenu(context,width,height);
 	}
+	
 	
 	
 })
