@@ -12,3 +12,4 @@
 		var player = new Player(startingMoney);
 		return player;
 	}
+	
