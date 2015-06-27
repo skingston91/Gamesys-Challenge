@@ -111,9 +111,9 @@ function UpdateActors(listOfActors)
 				actor.Update();
 				if(actor.x <= 100)//(Currently Hard coded finish line
 				{
-					actor.speed = 0;
-					//ExitGame();
+					StopGame();
 					WinnerScreen(actor);
+					
 				}
 				
 				//actor.Debug();

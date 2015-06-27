@@ -40,5 +40,5 @@ function TitleScreen()
 		
 		context.fillStyle = "black";
 		context.font = "24px Helvetica";
-		context.fillText("WACKY RACERS");
+		context.fillText("WACKY RACERS",x,y);
 	}	
