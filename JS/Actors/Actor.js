@@ -21,7 +21,8 @@ function Actor (x, y) {
 
 //Update the actors position using the prototype of the constructor
 Actor.prototype.Update = function() {
-	 this.x -= this.speed;
+	 this.x -= this.speed
+	 this.x -= CalculateRandomElement(100)/100 ; //Code is defined for whole numbers so we need to make it smaller + we need between 0 - 1
 }
 
 
