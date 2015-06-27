@@ -15,6 +15,7 @@
 //Generate the racers here when given an amount to create from
 function GenerateRacers(amountOfRacers,canvasWidth,canvasHeight)
 {
+	 canvasHeight -= 30;
 	 for(var i=0; i < amountOfRacers; i++){
 		var x = canvasWidth - 100;
 		var y = canvasHeight -(i * 30)
