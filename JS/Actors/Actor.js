@@ -26,9 +26,9 @@ Actor.prototype.Update = function() {
 
 
 Actor.prototype.Debug = function() {
-	 console.log(this.name +" x: " + this.x + " speed:" + this.speed ) ;
+	 console.log(this.name +" x: " + this.x + " speed: " + this.speed ) ;
 }
 
 Actor.prototype.DebugAll = function() {
-	 console.log(this.name +" x: " + this.x + " speed:" + this.speed + "Odds: " + this.odds + "Odds Value: " + this.oddsValue) ;
+	 console.log(this.name +" x: " + this.x + " speed: " + this.speed + " Odds: " + this.odds + " Odds Value: " + this.oddsValue) ;
 }

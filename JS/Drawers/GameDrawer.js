@@ -27,6 +27,8 @@ function RenderGame(canvas,listOfActors)
 		for(i=0;i < listOfActors.length; i++){
 			if (racerReady) {
 				var racer = listOfActors[i];
+				context.font = "12px Helvetica";
+				context.fillText(racer.name,racer.x -40,racer.y - 5);
 				canvas.drawImage(racerImage, racer.x, racer.y);
 			}
 		}

@@ -19,12 +19,13 @@ function GenerateRacers(amountOfRacers,canvasWidth,canvasHeight)
 		var x = canvasWidth - 100;
 		var y = canvasHeight -(i * 30)
 		var actor = new Actor(x,y);
-		actor.name = "Racer" + i; // Hopefully will change this to random name generator
+		//actor.name = "Racer" + i; // Hopefully will change this to random name generator
+		actor.name = findName();
 		actor.stats = GenerateStats(racerStatsValues); // generates us the Racers racing stats 
 		actor.racerValue = CalculateStats(actor.stats); // create the one value we will use eventually for the speed
 		CalculateOdds(actor);//figure out the racers chance of winning and add them to the actor
 		actor.speed = CalculateRacerSpeed(CalculateTrueStats(actor.racerValue));
-		//actor.DebugAll();
+		actor.DebugAll();
 		racers[i] = actor;
 		
   }
