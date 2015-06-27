@@ -10,6 +10,8 @@
 //Possible Stats Range(the max)
   var maxStatsRange = 100;
 	
+
+	
 //Generate the racers here when given an amount to create from
 function GenerateRacers(amountOfRacers,canvasWidth,canvasHeight)
 {
@@ -18,12 +20,13 @@ function GenerateRacers(amountOfRacers,canvasWidth,canvasHeight)
 		var y = canvasHeight -(i * 30)
 		var actor = new Actor(x,y);
 		actor.name = "Racer" + i; // Hopefully will change this to random name generator
-		actor.stats = GenerateStats(racerStatsValues); // gets us the Racers racing stats (unused currently)
-		var racerValue = CalculateStats(actor.stats); // create the one value we will use for the speed
-		actor.odds = CalculateOdds(racerValue)	;
-		actor.speed = CalculateRacerSpeed(CalculateTrueStats(racerValue));
-		actor.Debug();
+		actor.stats = GenerateStats(racerStatsValues); // generates us the Racers racing stats 
+		actor.racerValue = CalculateStats(actor.stats); // create the one value we will use eventually for the speed
+		CalculateOdds(actor);//figure out the racers chance of winning and add them to the actor
+		actor.speed = CalculateRacerSpeed(CalculateTrueStats(actor.racerValue));
+		//actor.DebugAll();
 		racers[i] = actor;
+		
   }
 	
 	return racers;
@@ -62,20 +65,23 @@ function CalculateStats(stats)
 // Takes a data structure of the actors and compares their values to each other to figure out likelihood of winning **
 
 //For the moment we will do a simple if statement to check what we should say the odds are
-function CalculateOdds(racerValue)
+function CalculateOdds(racer)
 {
-	var maxPossibleRacerValue = racerStatsValues * maxStatsRange;
-	if(racerValue >= maxPossibleRacerValue/2  && racerValue <= maxPossibleRacerValue)
+	var maxPossibleRacerValue = racerStatsValues * maxStatsRange; // create what the best possible values should be 
+	if(racer.racerValue >= maxPossibleRacerValue/2  && racer.racerValue <= maxPossibleRacerValue)
 	{
-			return "Looking Good";
+			racer.oddsValue = 1.1;
+			racer.odds = "Looking Good";
 	}
-	if (racerValue >= 0 && racerValue < maxPossibleRacerValue/2 )
+	if (racer.racerValue >= 0 && racer.racerValue < maxPossibleRacerValue/2 )
 	{
-		return "*Cough";
+		racer.oddsValue = 1.5;
+		racer.odds = "*Cough";
 	}
 	else
 	{
-		return "MAMMA MIA";
+		racer.oddsValue = 2;
+		racer.odds = "MAMMA MIA";
 	}
 	
 }
@@ -109,10 +115,12 @@ function UpdateActors(listOfActors)
 		 for(var i = 0; i < listOfActors.length; i++){
 				var actor = listOfActors[i];
 				actor.Update();
+				
 				if(actor.x <= 100)//(Currently Hard coded finish line
 				{
 					StopGame();
 					ClearGameScreen();
+					AddWinnings(actor);// pass the racer through to figure out winnings and then add to the player money
 					WinnerScreen(actor);
 				}
 				
@@ -120,4 +128,8 @@ function UpdateActors(listOfActors)
   }
 }
 
-//
+// Return Winner of the racer
+function ReturnWinner(racer)
+{
+	 return racer;
+}

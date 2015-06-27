@@ -13,14 +13,15 @@ $(document).ready(function(){
 	var racers;
 	var then;
 	var running;
+	var player;
 	})
 	
 	//Initialise the game starting at the menu
 	function Initialise()	{
 		ClearMenuScreen();
 		TitleScreen();
+		player = new Player(2000);
 		StartGame();
-		
 	}
 	
 	function StartGame()	{
@@ -68,6 +69,11 @@ $(document).ready(function(){
 	// Cross-browser support for requestAnimationFrame
 	var w = window;
 	requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
+
+	function returnPlayer(){
+		return Player;		
+	}
+	
 	
 	
 

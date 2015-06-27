@@ -27,7 +27,6 @@ function RenderGame(canvas,listOfActors)
 		for(i=0;i < listOfActors.length; i++){
 			if (racerReady) {
 				var racer = listOfActors[i];
-				//racer.Debug();
 				canvas.drawImage(racerImage, racer.x, racer.y);
 			}
 		}

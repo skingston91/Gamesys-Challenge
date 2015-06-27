@@ -10,10 +10,12 @@ function Actor (x, y) {
 
 	this.name = ''; // Defined later using a name generator
 	this.stats = []; //Array Used to store the actors stats when created 
+	this.racerValue = 0;//
 	this.speed = 0;// This is the speed of the actor
 	this.odds = ''; // String for the user to see the odds of this racers
+	this.oddsValue = 0; // Will use an interger to just state how much the winners get
 	this.renderMethod = undefined; //If set then used to pick how we render an object.
-
+	this.currentBet = 0 ;// We will increment this value so we know what the users bet was 
 	
 }
 
@@ -28,5 +30,5 @@ Actor.prototype.Debug = function() {
 }
 
 Actor.prototype.DebugAll = function() {
-	 console.log(this.name +" x: " + this.x + " speed:" + this.speed ) ;
+	 console.log(this.name +" x: " + this.x + " speed:" + this.speed + "Odds: " + this.odds + "Odds Value: " + this.oddsValue) ;
 }
