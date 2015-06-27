@@ -85,7 +85,7 @@ function CalculateOdds(racerValue)
 function CalculateRandomElement(maxRange)
 {
 	//var randomNumber = Math.floor((Math.random() * maxRange) + 1);
-	var randomNumber = 20;
+	var randomNumber = 50;
 	//console.log(randomNumber);
 	return randomNumber;
 }
@@ -117,9 +117,12 @@ function UpdateActors(listOfActors)
 				if(actor.x <= 100)//(Currently Hard coded finish
 				{
 					actor.speed = 0;
-					console.log(actor.name);
+					WinnerScreen(actor);
+					//break;
 				}
 				
 				//actor.Debug();
   }
 }
+
+//
