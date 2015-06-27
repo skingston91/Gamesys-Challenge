@@ -11,16 +11,18 @@
   var maxStatsRange = 100;
 	
 //Generate the racers here when given an amount to create from
-function GenerateRacers(amountOfRacers)
+function GenerateRacers(amountOfRacers,canvasWidth)
 {
-	 for(i=0; i < amountOfRacers; i++){
-		var height = i + 10;
-		var actor = new Actor(height,5);
+	 for(var i=0; i < amountOfRacers; i++){
+		var x = canvasWidth - 10;
+		var y = i * 10
+		var actor = new Actor(x,y);
 		actor.name = "Racer" + i; // Hopefully will change this to random name generator
 		actor.stats = GenerateStats(racerStatsValues); // gets us the Racers racing stats (unused currently)
 		var racerValue = CalculateStats(actor.stats); // create the one value we will use for the speed
 		actor.odds = CalculateOdds(racerValue)	;
 		actor.speed = CalculateRacerSpeed(CalculateTrueStats(racerValue));
+		actor.Debug();
 		racers[i] = actor;
   }
 	
@@ -31,8 +33,8 @@ function GenerateRacers(amountOfRacers)
 function GenerateStats(statsRequired)
 {
 	var statsArray = [];
-	for(o = 0; o < statsRequired; o++){
-		statsArray[o] = CalculateRandomElement(maxStatsRange)
+	for(var i = 0; i < statsRequired; i++){
+		statsArray[i] = CalculateRandomElement(maxStatsRange)
 	}
 	
 	return statsArray;
@@ -50,10 +52,11 @@ function CalculateStats(stats)
 	var fitnessValue = 3; */
 	
 	var racerValue = 0;
-	 for(n=0; n < stats.length; n++){
-			racerValue = racerValue + stats[n];
+	 for(var i =0; i < stats.length; i++){
+			racerValue = racerValue + stats[i];
   }
 	return racerValue;
+	
 }
 
 // Takes a data structure of the actors and compares their values to each other to figure out likelihood of winning **
@@ -78,16 +81,23 @@ function CalculateOdds(racerValue)
 }
 
 // Makes a random number between one and maxRange
+//Currently Broken
 function CalculateRandomElement(maxRange)
 {
-	return Math.floor((Math.random() * maxRange) + 1);
+	//var randomNumber = Math.floor((Math.random() * maxRange) + 1);
+	var randomNumber = 20;
+	//console.log(randomNumber);
+	return randomNumber;
 }
 
 // Adds a random value to the true stats 
 function CalculateTrueStats(racerValue)
 {
-	var randomValue = CalculateRandomElement();
-	racerValue = racerValue + randomValue;
+	var randomValue = CalculateRandomElement(); 
+//	console.log(randomValue);
+	//console.log(racerValue);
+	racerValue += randomValue;
+	//console.log(racerValue);
 	return racerValue;
 }
 
@@ -96,4 +106,14 @@ function CalculateRacerSpeed(racerValue)
 {
 	var speed = racerValue/100;
 	return speed;
+}
+
+function UpdateActors(listOfActors)
+{
+		 for(var i = 0; i < listOfActors.length; i++){
+				var actor = listOfActors[i];
+				actor.Update();
+				//actor.Debug();
+				
+  }
 }

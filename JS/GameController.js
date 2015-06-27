@@ -9,23 +9,30 @@ $(document).ready(function(){
 	var height = $("#canvas").height();
 	
 	Initialise();
+	
+	var racers;
+	var then;
+	
 	//Initialise the game starting at the menu
-	function Initialise()
-	{
+	function Initialise()	{
 		ClearScreen(context,width,height);
 		StartGame();
 		
 	}
 	
-	function StartGame()
-	{
-		GenerateRacers(7);
-		
+	function StartGame()	{
+		racers = GenerateRacers(7,width);
+		then = Date.now();
+		Main(); 
 	}
 	
-	function UpdateGame()
-	{
+	function Reset(){
 	
+	}
+	
+	function UpdateGame()	{
+			UpdateActors(racers);
+			
 	}
 	
 	function ExitGame()
@@ -33,6 +40,21 @@ $(document).ready(function(){
 		ShowMenu(context,width,height);
 	}
 	
+	// The main game loop - taken online
+	function Main() {
+		var now = Date.now();
+		var delta = now - then;
+
+		UpdateGame(delta / 1000);
+		RenderGame(context,racers);
+
+		then = now;
+
+		requestAnimationFrame(Main);
+	};
 	
+	// Cross-browser support for requestAnimationFrame
+	var w = window;
+	requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 	
 })

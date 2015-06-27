@@ -7,7 +7,7 @@
 		
 	}
 
-	//Varible to create the player and return it
+	//Variable to create the player and return it
 	function createPlayer(startingMoney){
 		var player = new Player(startingMoney);
 		return player;
