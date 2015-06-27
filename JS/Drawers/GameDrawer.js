@@ -17,18 +17,21 @@ racerImage.onload = function () {
 };
 racerImage.src = "Assets/Sprites/carSilver6_006.png";
 
+//This constantly Re-renders the gameUI over it's self then re renders the actors  
 function RenderGame(canvas,listOfActors)
 {
-	if (bgReady) {
-		canvas.drawImage(bgImage, 0, 0);
-	}
-	
-	for(i=0;i < listOfActors.length; i++){
-		if (racerReady) {
-			var racer = listOfActors[i];
-			//racer.Debug();
-			canvas.drawImage(racerImage, racer.x, racer.y);
+		if (bgReady) {
+			canvas.drawImage(bgImage, 0, 0);
 		}
-	}
-	
-} 
+		
+		for(i=0;i < listOfActors.length; i++){
+			if (racerReady) {
+				var racer = listOfActors[i];
+				//racer.Debug();
+				canvas.drawImage(racerImage, racer.x, racer.y);
+			}
+		}
+}
+
+
+

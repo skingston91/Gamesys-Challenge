@@ -12,6 +12,7 @@ $(document).ready(function(){
 	
 	var racers;
 	var then;
+	var running;
 	
 	//Initialise the game starting at the menu
 	function Initialise()	{
@@ -24,6 +25,12 @@ $(document).ready(function(){
 		racers = GenerateRacers(12,width,height);
 		then = Date.now();
 		Main(); 
+		running = true;
+	}
+	
+		//When we want to stop the game do it here
+	function StopGame(){
+		running = false;
 	}
 	
 	function Reset(){
@@ -32,29 +39,33 @@ $(document).ready(function(){
 	
 	function UpdateGame()	{
 			UpdateActors(racers);
-			
 	}
 	
 	function ExitGame()
 	{
+		StopGame();
 		ShowMenu(context,width,height);
 	}
 	
 	// The main game loop - taken online
 	function Main() {
-		var now = Date.now();
-		var delta = now - then;
+		if(running)
+			var now = Date.now();
+			var delta = now - then;
 
-		UpdateGame(delta / 1000);
-		RenderGame(context,racers);
+			UpdateGame(delta / 1000);
+			RenderGame(context,racers);
 
-		then = now;
+			then = now;
 
-		requestAnimationFrame(Main);
+			requestAnimationFrame(Main);
 	};
 	
 	// Cross-browser support for requestAnimationFrame
 	var w = window;
 	requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 	
+	
+
+
 })

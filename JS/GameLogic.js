@@ -81,23 +81,18 @@ function CalculateOdds(racerValue)
 }
 
 // Makes a random number between one and maxRange
-//Currently Broken
+//Currently Broken if we use this directly
 function CalculateRandomElement(maxRange)
 {
-	//var randomNumber = Math.floor((Math.random() * maxRange) + 1);
-	var randomNumber = 50;
-	//console.log(randomNumber);
+	var randomNumber = Math.floor((Math.random() * maxRange) + 1);
 	return randomNumber;
 }
 
 // Adds a random value to the true stats 
 function CalculateTrueStats(racerValue)
 {
-	var randomValue = CalculateRandomElement(); 
-//	console.log(randomValue);
-	//console.log(racerValue);
+	var randomValue = CalculateRandomElement(maxStatsRange); 
 	racerValue += randomValue;
-	//console.log(racerValue);
 	return racerValue;
 }
 
@@ -114,11 +109,11 @@ function UpdateActors(listOfActors)
 		 for(var i = 0; i < listOfActors.length; i++){
 				var actor = listOfActors[i];
 				actor.Update();
-				if(actor.x <= 100)//(Currently Hard coded finish
+				if(actor.x <= 100)//(Currently Hard coded finish line
 				{
 					actor.speed = 0;
+					//ExitGame();
 					WinnerScreen(actor);
-					//break;
 				}
 				
 				//actor.Debug();

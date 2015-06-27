@@ -20,14 +20,25 @@ function ClearScreen()
 		context.strokeStyle = "black";
 		context.strokeRect(0, 0, width, height);
 	}
+	
 //Screen that shows who the winner was
 function WinnerScreen(racer) 
 	{
 		var x = width / 2;
 		var y = height / 2;
 		
-		context.fillStyle = "white";
+		context.fillStyle = "black";
 		context.font = "24px Helvetica";
-		context.fillText("The Winner was:"  + racer,x,y);
+		context.fillText("The Winner was:"  + racer.name,x,y);
 	}	
-	
+
+//Show the Title
+function TitleScreen() 
+	{
+		var x = width / 3;
+		var y = height / 4;
+		
+		context.fillStyle = "black";
+		context.font = "24px Helvetica";
+		context.fillText("WACKY RACERS");
+	}	
