@@ -11,11 +11,11 @@
   var maxStatsRange = 100;
 	
 //Generate the racers here when given an amount to create from
-function GenerateRacers(amountOfRacers,canvasWidth)
+function GenerateRacers(amountOfRacers,canvasWidth,canvasHeight)
 {
 	 for(var i=0; i < amountOfRacers; i++){
-		var x = canvasWidth - 10;
-		var y = i * 10
+		var x = canvasWidth - 100;
+		var y = canvasHeight -(i * 30)
 		var actor = new Actor(x,y);
 		actor.name = "Racer" + i; // Hopefully will change this to random name generator
 		actor.stats = GenerateStats(racerStatsValues); // gets us the Racers racing stats (unused currently)
@@ -108,12 +108,18 @@ function CalculateRacerSpeed(racerValue)
 	return speed;
 }
 
+//The method which runs through our actors and updates them
 function UpdateActors(listOfActors)
 {
 		 for(var i = 0; i < listOfActors.length; i++){
 				var actor = listOfActors[i];
 				actor.Update();
-				//actor.Debug();
+				if(actor.x <= 100)//(Currently Hard coded finish
+				{
+					actor.speed = 0;
+					console.log(actor.name);
+				}
 				
+				//actor.Debug();
   }
 }

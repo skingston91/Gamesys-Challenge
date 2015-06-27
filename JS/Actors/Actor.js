@@ -19,7 +19,7 @@ function Actor (x, y) {
 
 //Update the actors position using the prototype of the constructor
 Actor.prototype.Update = function() {
-	 this.x += this.speed;
+	 this.x -= this.speed;
 }
 
 

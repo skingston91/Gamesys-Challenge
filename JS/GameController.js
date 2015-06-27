@@ -21,13 +21,13 @@ $(document).ready(function(){
 	}
 	
 	function StartGame()	{
-		racers = GenerateRacers(7,width);
+		racers = GenerateRacers(12,width,height);
 		then = Date.now();
 		Main(); 
 	}
 	
 	function Reset(){
-	
+			StartGame();
 	}
 	
 	function UpdateGame()	{
