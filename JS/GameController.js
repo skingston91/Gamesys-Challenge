@@ -17,9 +17,9 @@ $(document).ready(function(){
 	
 	//Initialise the game starting at the menu
 	function Initialise()	{
-		ClearScreen();
+		ClearMenuScreen();
 		TitleScreen();
-		//StartGame();
+		StartGame();
 		
 	}
 	

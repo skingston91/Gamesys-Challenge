@@ -1,10 +1,10 @@
 // This controls all the methods related to the Drawing of the UI except for the game
 // Steven Kingston 26/06/2015
 
-	var canvas = $("#canvas")[0];
+	var canvas = $("#menuCanvas")[0];
 	var context = canvas.getContext("2d");
-	var width = $("#canvas").width();
-	var height = $("#canvas").height();
+	var width = $("#menuCanvas").width();
+	var height = $("#menuCanvas").height();
 	
 //Paint everything we need at the start
 function ShowMenu(context,width,height)
@@ -13,7 +13,7 @@ function ShowMenu(context,width,height)
 	}
 	
 //Clear the screen to white
-function ClearScreen() 
+function ClearMenuScreen() 
 	{
 		context.fillStyle = "white";
 		context.fillRect(0, 0, width, height);

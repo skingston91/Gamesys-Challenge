@@ -5,7 +5,11 @@
 	</head>
 	<body>
 		<div class="wrapper">
-			<!-- Make our Canvas -->
+			<!-- Make our Menu Canvas -->
+			<canvas id="menuCanvas" width="1024" height="664">
+				<p>Your browser doesn't currently support HTML5 Canvas. Sorry!</p>
+			</canvas>
+			<!-- Make our Game Canvas -->
 			<canvas id="canvas" width="1024" height="664">
 				 <!-- If Browser doesn't support canvas -->
 				 <p>Your browser doesn't currently support HTML5 Canvas. Sorry!</p>
@@ -16,6 +20,8 @@
 				
 			<!-- Jquery -->
 			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+			<!-- Zebra Used for Canvas UI -->
+			<script src='http://repo.zebkit.org/latest/zebra.min.js' type='text/javascript'></script> 
 
 			<!-- The Game's scripts -->
 			<script type="text/javascript" src="JS/GameLogic.js"></script>
