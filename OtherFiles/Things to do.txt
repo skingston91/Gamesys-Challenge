@@ -1,6 +1,4 @@
 Required
-Add Sounds
-Add Music
 Betting System with menus
 
 Nice to have

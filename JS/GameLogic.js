@@ -10,8 +10,6 @@
 //Possible Stats Range(the max)
   var maxStatsRange = 100;
 	
-
-	
 //Generate the racers here when given an amount to create from
 function GenerateRacers(amountOfRacers,canvasWidth,canvasHeight)
 {
