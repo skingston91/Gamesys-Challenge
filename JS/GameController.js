@@ -23,7 +23,6 @@ $(document).ready(function(){
 		//$("#canvas").hide();
 		//$("#canvas").show();
 		player = new Player(2000);
-		racers = GenerateRacers(12,canvasWidth,canvasHeight);
 		SetupSound();
 		//LoadBettingMenu();
 		//StartRace();
@@ -34,7 +33,7 @@ $(document).ready(function(){
 	}
 	
 	function LoadBettingMenu(){
-		//racers = GenerateRacers(12,canvasWidth,canvasHeight);
+		racers = GenerateRacers(12,canvasWidth,canvasHeight);
 		BettingScreen(racers,player);
 	}
 	

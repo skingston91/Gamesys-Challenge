@@ -3,7 +3,8 @@
 
 // When the bet on that racer is pressed check they have the money and remove from their funds then add the Bet to the
 // racer 
-function IncrementBet(player,racer){
+function IncrementBet(racer){
+		var player = returnPlayer();
 		if(player.money >= 100){
 			player.money -= 100;
 			racer.currentBet += 100;
@@ -11,7 +12,8 @@ function IncrementBet(player,racer){
 	}		
 
 //	Decrease the bet on the racer
-function DecrecmentBet(player,racer){
+function DecrecmentBet(racer){
+		var player = returnPlayer();
 		if(racer.money <= 100){
 			player.money += 100;
 			racer.currentBet -= 100;
@@ -19,7 +21,8 @@ function DecrecmentBet(player,racer){
 }
 
 //Reset Bets from all racers 
-function ResetBets(player,racers){
+function ResetBets(racers){
+	var player = returnPlayer();
 	for(var i = 0; i < racers.length; i++){
 			var racer = racers[i];
 			var racerBet = racer.currentBet;
