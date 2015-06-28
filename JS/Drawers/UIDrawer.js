@@ -11,7 +11,8 @@
 	var layer;
 	var xPosition;
 	var yPosition;
-	
+	var odds;
+	var playerStatText;
 //This is the area we will be using for the UI 
 function createKineticArea()
 	{
@@ -23,27 +24,29 @@ function createKineticArea()
 		layer = new Kinetic.Layer();
 	} 	
 	//Screen that shows who the winner was
-function WinnerScreen(racer) 
+function WinnerInformation(racer) 
 	{
-
+		var value = CalculateWinnings(racer);
+		createText("You Won:" + value,stage.width()/2 + 100,stage.height()/2,30)
 	}	
 
 //Create the Title Screen
 function TitleScreen() 
 	{
+		addBorder();
 		createTitle("CBR");
-		xPosition = stage.width()/2,
-		yPosition = stage.height()/3,
+		xPosition = stage.width()/3,
+		yPosition = stage.height()/2,
 		GenerateMenuButton("Start Game",LoadBettingMenu,xPosition,yPosition);
 		yPosition += 60;
-		GenerateMenuButton("Mute",MuteCurrentSound,xPosition,yPosition);
+		//GenerateMenuButton("Mute",MuteCurrentSound,xPosition,yPosition);
 	}
 		
 //Create the Title Text
 function createTitle(name)
 	{
 		var text = new Kinetic.Text({
-			x: stage.width()/2,
+			x: stage.width()/3 + 20,
 			y: stage.height()/6,
 			fontFamily: 'Calibri',
 			fontSize: 80,
@@ -54,7 +57,34 @@ function createTitle(name)
 		layer.add(text);
 		stage.add(layer);
 	}
-	
+
+function createText(value,xPosition,yPosition,size)
+		{
+		var text = new Kinetic.Text({
+			x: xPosition,
+			y: yPosition,
+			fontFamily: 'Calibri',
+			fontSize: size,
+			text: value,
+			fill: 'black',
+			align: 'center'
+		});
+		layer.add(text);
+		stage.add(layer);
+	}
+
+//
+function addBorder()
+{
+	var border = new Kinetic.Rect({
+		width: stage.getWidth(),
+		height: stage.getHeight(),
+		stroke: 'black',
+		strokeWidth: 4, //Border Size in Pixels
+	});
+		layer.add(border);
+		stage.add(layer);
+}
 // Will Generate a button with text which can call a function passed to it
 function GenerateMenuButton(Text,calledfunction,xPostion,yPostion)
 	{
@@ -89,18 +119,20 @@ function GenerateMenuButton(Text,calledfunction,xPostion,yPostion)
 	
 	}
 //Create Player Status
-function createPlayerStatus(money)
+function createPlayerStatus()
 	{
-		var text = new Kinetic.Text({
-			x: stage.width()/8,
-			y: stage.height()/8,
+		layer.remove(playerStatText);
+		var player = returnPlayer();
+		playerStatText = new Kinetic.Text({
+			x: stage.width()/9,
+			y: stage.height()/9,
 			fontFamily: 'Calibri',
 			fontSize:30,
-			text: 'Player Money:' + money,
+			text: 'Player Money:' + player.money,
 			fill: 'black',
 			align: 'center'
 		});
-		layer.add(text);
+		layer.add(playerStatText);
 		stage.add(layer);
 	}
 	
@@ -109,24 +141,20 @@ function BettingScreen(racers,player)
 	{
 		layer.removeChildren();
 		layer.clear();
+		addBorder();
 		createTitle("Betting Time");
 		createPlayerStatus(player.money);
-		GenerateMenuButton("Start Race",StartRace,600,250);
-		var startXPosition = stage.width()/6;
-		var startYPosition = stage.height()/2; // start position of the y 
+		GenerateMenuButton("Start Race",StartRace,600,500);
+		var startXPosition = stage.width()/8;
+		var startYPosition = stage.height()/3; // start position of the y 
 		var yPosition = startYPosition; // start position of the y 	
 	  for(var i = 0; i < racers.length; i++)
 		{
 			var racer = racers[i];
 			xPosition = startXPosition;
 			yPosition = yPosition + 55;
-			//console.log(stage.height());
-			//console.log(startYPosition);
-			console.log(racer.name);
 			if (yPosition >= stage.height())
 			{
-				// console.log(yPosition);
-				// console.log(racer.name);
 				xPosition =+ 600;
 				yPosition = startYPosition + 55;
 			}
@@ -138,13 +166,14 @@ function BettingScreen(racers,player)
 //Generate Betting Area for the user including the buttons to bet
 function GenerateFullRacerArea(racer,xPosition,yPosition)
 	{
-			GenerateRacerArea(racer.name,xPosition,yPosition);
+			GenerateRacerArea(racer,xPosition,yPosition);
 			GenerateRacerBetButton(racer,IncrementBet,xPosition + 210,yPosition ,"Up")
-			GenerateRacerBetButton(racer,DecrecmentBet,xPosition + 260,yPosition,"Down")
+			GenerateRacerBetButton(racer,DecrecmentBet,xPosition + 270,yPosition,"Down")
+			createText("Bet:" + racer.currentBet,xPosition + 340,yPosition + 10,20);
 	}
 	
 // Will Generate an area to show the racer details - hopefully image of racer and name and stats
-function GenerateRacerArea(name,xPosition,yPosition)
+function GenerateRacerArea(racer,xPosition,yPosition)
 	{
 		var rect = new Kinetic.Rect({
 			x: xPosition,
@@ -163,12 +192,25 @@ function GenerateRacerArea(name,xPosition,yPosition)
 			fontSize: 15,
 			width:rect.getWidth(),
 			align: 'center',
-			text: name,
+			text: racer.name,
 			fill: 'black'
 		});
 		
+		odds = new Kinetic.Text({
+			x: rect.getX(),
+			y: rect.getY() + 30,
+			fontFamily: 'Calibri',
+			fontSize: 13,
+			width:rect.getWidth(),
+			align: 'center',
+			text: "Odds: " + racer.odds,
+			fill: 'black'
+		});
+		
+		
 		layer.add(rect);
 		layer.add(text);
+		layer.add(odds);
 		stage.add(layer);
 	
 	}	
@@ -176,7 +218,6 @@ function GenerateRacerArea(name,xPosition,yPosition)
 // These define the buttons for the buttons we use for increasing and decreasing betting 
 function GenerateRacerBetButton(racer,calledfunction,xPosition,yPosition,buttonText)
 {
-	
 		var rect = new Kinetic.Rect({
 			x: xPosition,
 			y: yPosition,
@@ -198,8 +239,21 @@ function GenerateRacerBetButton(racer,calledfunction,xPosition,yPosition,buttonT
 			fill: 'black'
 		});
 		
+		var text = new Kinetic.Text({
+			x: rect.getX(),
+			y: rect.getY() + 15,
+			fontFamily: 'Calibri',
+			fontSize: 20,
+			width:rect.getWidth(),
+			align: 'center',
+			text: buttonText,
+			fill: 'black'
+		});
+		
 		rect.on('mousedown', function() {
 			calledfunction(racer);
+			createPlayerStatus();
+			BettingScreen(racers,player); // THIS IS REALLY TERRIBLE AS REDRAWING EVERYTHING 
 		});
 		layer.add(rect);
 		layer.add(text);

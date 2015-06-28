@@ -20,12 +20,8 @@ $(document).ready(function(){
 	function Initialise()	{
 	  createKineticArea();
 		LoadMainMenu();
-		//$("#canvas").hide();
-		//$("#canvas").show();
 		player = new Player(2000);
 		SetupSound();
-		//LoadBettingMenu();
-		//StartRace();
 	}
 	
 	function LoadMainMenu(){
@@ -33,13 +29,17 @@ $(document).ready(function(){
 	}
 	
 	function LoadBettingMenu(){
-		racers = GenerateRacers(12,canvasWidth,canvasHeight);
+		$('#canvas').hide();
+		$('#container').show();
+		racers = GenerateRacers(6,canvasWidth,canvasHeight);
 		BettingScreen(racers,player);
 	}
 	
 	function StartRace(){
 		//racers = GenerateRacers(12,canvasWidth,canvasHeight);
 		//PlayRaceMusic("music");
+		$('#container').hide();
+		$('#canvas').show();
 		then = Date.now();
 		running = true;
 		Main(); 
@@ -49,10 +49,11 @@ $(document).ready(function(){
 		//When we want to stop the game do it here
 	function StopGame(){
 		running = false;
+		Reset();
 	}
 	
 	function Reset(){
-			StartGame();
+			LoadBettingMenu();
 	}
 	
 	function UpdateGame()	{
@@ -68,7 +69,6 @@ $(document).ready(function(){
 	// The main game loop - taken online
 	function Main() {
 		if(running == true){
-			//soundManager.play('music');
 			var now = Date.now();
 			var delta = now - then;
 
@@ -79,6 +79,10 @@ $(document).ready(function(){
 
 			requestAnimationFrame(Main);
 			}
+		else{
+				var sound = soundManager.getSoundById("music")
+				MuteOneSound(sound);
+		}
 	};
 	
 	// Cross-browser support for requestAnimationFrame
@@ -86,7 +90,7 @@ $(document).ready(function(){
 	requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
 	function returnPlayer(){
-		return Player;		
+		return player;		
 	}
 	
 	

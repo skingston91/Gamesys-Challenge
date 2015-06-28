@@ -5,10 +5,18 @@ function PlayRaceMusic(music)
 {
 	var sound = soundManager.getSoundById(music);
 	sound.play({
-		volume: 20,
-    onfinish: function() {
-      loopSound(sound);
-    }
+		volume: 5,
+  });
+}
+
+function PlayTitleMusic(music)
+{
+	var sound = soundManager.getSoundById(music);
+	sound.play({
+		volume: 5,
+     onfinish: function() {
+       loopSound(sound);
+     }
   });
 }
 

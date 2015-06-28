@@ -14,7 +14,7 @@ function IncrementBet(racer){
 //	Decrease the bet on the racer
 function DecrecmentBet(racer){
 		var player = returnPlayer();
-		if(racer.money <= 100){
+		if(racer.currentBet >= 100){
 			player.money += 100;
 			racer.currentBet -= 100;
 		}
@@ -33,7 +33,12 @@ function ResetBets(racers){
 
 //Add the Winnings after calculation to the player
 function AddWinnings(racer){
-	var winnings = racer.currentBet * racer.oddsValue;
+	var winnings = CalculateWinnings(racer);
 	var player = returnPlayer();
 	player.money += winnings;
+}
+
+function CalculateWinnings(racer)
+{
+		return racer.currentBet * racer.oddsValue;
 }

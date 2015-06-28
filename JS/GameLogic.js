@@ -23,7 +23,6 @@ function GenerateRacers(amountOfRacers,canvasWidth,canvasHeight)
 		actor.racerValue = CalculateStats(actor.stats); // create the one value we will use eventually for the speed
 		CalculateOdds(actor);//figure out the racers chance of winning and add them to the actor
 		actor.speed = CalculateRacerSpeed(CalculateTrueStats(actor.racerValue));
-		//actor.DebugAll();
 		racers[i] = actor;
 		
   }
@@ -75,7 +74,7 @@ function CalculateOdds(racer)
 	if (racer.racerValue >= 0 && racer.racerValue < maxPossibleRacerValue/2 )
 	{
 		racer.oddsValue = 1.5;
-		racer.odds = "*Cough";
+		racer.odds = "Eh?";
 	}
 	else
 	{
@@ -115,15 +114,13 @@ function UpdateActors(listOfActors)
 				var actor = listOfActors[i];
 				actor.Update();
 				
-				if(actor.x <= 100)//(Currently Hard coded finish line
+				if(actor.x <= 70)//(Currently Hard coded finish line
 				{
 					StopGame();
 					soundManager.play("clap");
 					AddWinnings(actor);// pass the racer through to figure out winnings and then add to the player money
-					WinnerScreen(actor);
+					WinnerInformation(racer);
 				}
-				
-				//actor.Debug();
   }
 }
 
