@@ -21,11 +21,21 @@ $(document).ready(function(){
 		ClearMenuScreen();
 		TitleScreen();
 		player = new Player(2000);
-		StartGame();
+		SetupSound();
+		LoadBettingMenu();
+		StartRace();
 	}
 	
-	function StartGame()	{
+	function LoadMainMenu(){
+	
+	}
+	
+	function LoadBettingMenu(){
 		racers = GenerateRacers(12,width,height);
+	}
+	
+	function StartRace(){
+		PlayRaceMusic("music");
 		then = Date.now();
 		running = true;
 		Main(); 
@@ -54,6 +64,7 @@ $(document).ready(function(){
 	// The main game loop - taken online
 	function Main() {
 		if(running == true){
+			//soundManager.play('music');
 			var now = Date.now();
 			var delta = now - then;
 

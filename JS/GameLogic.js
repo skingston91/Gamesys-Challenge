@@ -122,6 +122,7 @@ function UpdateActors(listOfActors)
 				{
 					StopGame();
 					ClearGameScreen();
+					soundManager.play("clap");
 					AddWinnings(actor);// pass the racer through to figure out winnings and then add to the player money
 					WinnerScreen(actor);
 				}
