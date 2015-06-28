@@ -3,7 +3,7 @@
 
 function PlayRaceMusic(music)
 {
-	var sound =soundManager.getSoundById(music);
+	var sound = soundManager.getSoundById(music);
 	sound.play({
 		volume: 20,
     onfinish: function() {
@@ -13,12 +13,12 @@ function PlayRaceMusic(music)
 }
 
 //Untested features
-function MuteSound()
+function MuteCurrentSound()
 {
 	setTimeout(soundManager.mute, 1000);
 }
 
-function UnmuteSound()
+function UnmuteCurrentSound()
 {
 	setTimeout(soundManager.unmute, 500);
 }

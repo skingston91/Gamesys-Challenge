@@ -5,8 +5,8 @@ $(document).ready(function(){
 	//Canvas stuff
 	var canvas = $("#canvas")[0];
 	var context = canvas.getContext("2d");
-	var width = $("#canvas").width();
-	var height = $("#canvas").height();
+	var canvasWidth = $("#canvas").width();
+	var canvasHeight = $("#canvas").height();
 	
 	Initialise();
 	
@@ -18,25 +18,29 @@ $(document).ready(function(){
 	
 	//Initialise the game starting at the menu
 	function Initialise()	{
-		ClearMenuScreen();
-		TitleScreen();
+	  createKineticArea();
+		LoadMainMenu();
+		//$("#canvas").hide();
+		//$("#canvas").show();
 		player = new Player(2000);
+		racers = GenerateRacers(12,canvasWidth,canvasHeight);
 		SetupSound();
-		LoadBettingMenu();
-		TestTitleScreen();
+		//LoadBettingMenu();
 		//StartRace();
 	}
 	
 	function LoadMainMenu(){
-	
+			TitleScreen();
 	}
 	
 	function LoadBettingMenu(){
-		racers = GenerateRacers(12,width,height);
+		//racers = GenerateRacers(12,canvasWidth,canvasHeight);
+		BettingScreen(racers,player);
 	}
 	
 	function StartRace(){
-		PlayRaceMusic("music");
+		//racers = GenerateRacers(12,canvasWidth,canvasHeight);
+		//PlayRaceMusic("music");
 		then = Date.now();
 		running = true;
 		Main(); 
@@ -59,7 +63,7 @@ $(document).ready(function(){
 	function ExitGame()
 	{
 		StopGame();
-		ShowMenu(context,width,height);
+		ShowMenu(context,canvasWidth,canvasHeight);
 	}
 	
 	// The main game loop - taken online

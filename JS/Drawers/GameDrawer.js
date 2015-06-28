@@ -33,13 +33,3 @@ function RenderGame(canvas,listOfActors)
 			}
 		}
 }
-
-//Clear the screen to white
-function ClearGameScreen() 
-	{
-		context.fillStyle = "white";
-		context.fillRect(0, 0, width, height);
-		context.strokeStyle = "black";
-		context.strokeRect(0, 0, width, height);
-	}
-
