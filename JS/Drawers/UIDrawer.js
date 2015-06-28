@@ -23,40 +23,57 @@ function createKineticArea()
 				});
 		layer = new Kinetic.Layer();
 	} 	
-	//Screen that shows who the winner was
-function WinnerInformation(racer) 
-	{
-		var value = CalculateWinnings(racer);
-		createText("You Won:" + value,stage.width()/2 + 100,stage.height()/2,30)
-	}	
-
+	
 //Create the Title Screen
 function TitleScreen() 
 	{
 		addBorder();
-		createTitle("CBR");
+		createText("CBR",stage.width()/3 + 20,stage.height()/6,80);
+		createText("Crusty Burrito Racing",stage.width()/3-70,stage.height()/6 + 80,50);
 		xPosition = stage.width()/3,
 		yPosition = stage.height()/2,
 		GenerateMenuButton("Start Game",LoadBettingMenu,xPosition,yPosition);
 		yPosition += 60;
 		//GenerateMenuButton("Mute",MuteCurrentSound,xPosition,yPosition);
 	}
-		
-//Create the Title Text
-function createTitle(name)
+	
+	//Create the Betting function Screen by iterating through all the racers and creating the buttons for them
+function BettingScreen(racers)
 	{
-		var text = new Kinetic.Text({
-			x: stage.width()/3 + 20,
-			y: stage.height()/6,
-			fontFamily: 'Calibri',
-			fontSize: 80,
-			text: name,
-			fill: 'black',
-			align: 'center'
-		});
-		layer.add(text);
-		stage.add(layer);
+		layer.removeChildren();
+		layer.clear();
+		addBorder();
+		var player = returnPlayer();
+		createText("Betting Time",stage.width()/3 + 20,stage.height()/6,80);
+		createPlayerStatus(player.money);
+		GenerateMenuButton("Start Race",StartRace,600,500);
+		var startXPosition = stage.width()/8;
+		var startYPosition = stage.height()/3; // start position of the y 
+		var yPosition = startYPosition; // start position of the y 	
+	  for(var i = 0; i < racers.length; i++)
+		{
+			var racer = racers[i];
+			xPosition = startXPosition;
+			yPosition = yPosition + 55;
+			if (yPosition >= stage.height())
+			{
+				xPosition =+ 600;
+				yPosition = startYPosition + 55;
+			}
+			GenerateFullRacerArea(racer,xPosition,yPosition)
+		}
+		layer.draw();
 	}
+	//Screen that shows who the winner was
+function WinnerInformation(racer) 
+	{
+		var value = CalculateWinnings(racer);
+		createText("Racer: "+ racer.name+ " Won",stage.width()/2 + 100,stage.height()/2,20)
+		createText("You got: " + value,stage.width()/2 + 100,stage.height()/2 + 50,20)
+		//alert("Racer: "+ racer.name + " Won You got " + value);
+	}	
+
+		
 
 function createText(value,xPosition,yPosition,size)
 		{
@@ -128,7 +145,7 @@ function createPlayerStatus()
 			y: stage.height()/9,
 			fontFamily: 'Calibri',
 			fontSize:30,
-			text: 'Player Money:' + player.money,
+			text: 'Player Money: £' + player.money,
 			fill: 'black',
 			align: 'center'
 		});
@@ -136,32 +153,7 @@ function createPlayerStatus()
 		stage.add(layer);
 	}
 	
-//Create the Betting function Screen by iterating through all the racers and creating the buttons for them
-function BettingScreen(racers,player)
-	{
-		layer.removeChildren();
-		layer.clear();
-		addBorder();
-		createTitle("Betting Time");
-		createPlayerStatus(player.money);
-		GenerateMenuButton("Start Race",StartRace,600,500);
-		var startXPosition = stage.width()/8;
-		var startYPosition = stage.height()/3; // start position of the y 
-		var yPosition = startYPosition; // start position of the y 	
-	  for(var i = 0; i < racers.length; i++)
-		{
-			var racer = racers[i];
-			xPosition = startXPosition;
-			yPosition = yPosition + 55;
-			if (yPosition >= stage.height())
-			{
-				xPosition =+ 600;
-				yPosition = startYPosition + 55;
-			}
-			GenerateFullRacerArea(racer,xPosition,yPosition)
-		}
-		layer.draw();
-	}
+
 	
 //Generate Betting Area for the user including the buttons to bet
 function GenerateFullRacerArea(racer,xPosition,yPosition)
@@ -169,7 +161,7 @@ function GenerateFullRacerArea(racer,xPosition,yPosition)
 			GenerateRacerArea(racer,xPosition,yPosition);
 			GenerateRacerBetButton(racer,IncrementBet,xPosition + 210,yPosition ,"Up")
 			GenerateRacerBetButton(racer,DecrecmentBet,xPosition + 270,yPosition,"Down")
-			createText("Bet:" + racer.currentBet,xPosition + 340,yPosition + 10,20);
+			createText("Bet: £" + racer.currentBet,xPosition + 340,yPosition + 10,20);
 	}
 	
 // Will Generate an area to show the racer details - hopefully image of racer and name and stats

@@ -1,0 +1,4 @@
+Doesn't render new Player Money after a race
+Can't load more than 6 in a menu with the buttons going off screen 
+Buttons only work if you click the top middle of them 
+Doesn't see to be making good racers anymore(no looking good)

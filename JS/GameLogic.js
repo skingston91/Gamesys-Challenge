@@ -16,7 +16,7 @@ function GenerateRacers(amountOfRacers,canvasWidth,canvasHeight)
 	 canvasHeight -= 30;
 	 for(var i=0; i < amountOfRacers; i++){
 		var x = canvasWidth - 100;
-		var y = canvasHeight -(i * 30)
+		var y = canvasHeight -(i * 60)
 		var actor = new Actor(x,y);
 		actor.name = findName(); // Random Name Generator
 		actor.stats = GenerateStats(racerStatsValues); // generates us the Racers racing stats 
@@ -118,8 +118,9 @@ function UpdateActors(listOfActors)
 				{
 					StopGame();
 					soundManager.play("clap");
+					WinnerInformation(actor);
 					AddWinnings(actor);// pass the racer through to figure out winnings and then add to the player money
-					WinnerInformation(racer);
+					
 				}
   }
 }
