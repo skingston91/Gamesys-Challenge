@@ -42,3 +42,22 @@ function TitleScreen()
 		context.font = "24px Helvetica";
 		context.fillText("WACKY RACERS",x,y);
 	}	
+	
+function TestTitleScreen()
+	{
+		var r = new zebra.ui.zCanvas(200,200).root;
+	r.setBorder(zebra.ui.borders.plain);
+	 
+	// set flow layout with vertical components
+	// ordering and center vertical and 
+	// horizontal alignments
+	r.setLayout(new zebra.layout.FlowLayout(
+			 zebra.layout.CENTER, 
+			 zebra.layout.CENTER, 
+			 zebra.layout.VERTICAL, 2));
+	 
+	// add children components
+	r.add(new zebra.ui.Button("VCentered"));
+	r.add(new zebra.ui.Button("VCentered"));
+	r.add(new zebra.ui.Button("VCentered"));
+	}

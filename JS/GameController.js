@@ -23,7 +23,8 @@ $(document).ready(function(){
 		player = new Player(2000);
 		SetupSound();
 		LoadBettingMenu();
-		StartRace();
+		TestTitleScreen();
+		//StartRace();
 	}
 	
 	function LoadMainMenu(){
