@@ -14,7 +14,7 @@ function SetupSound()
 		
    soundManager.createSound({
 	 id: 'music',
-	 url: '../GamesysChallenge/Assets/Sounds/BoxCat_Games_-_10_-_Epic_Song.mp3'
+	 url: '../GamesysChallenge/Assets/Music/Benny Hill Show.mp3'
 	}); 
   },
   ontimeout: function() {
