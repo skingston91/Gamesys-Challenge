@@ -1,4 +1,4 @@
-// GameController is the master file which has access to the other files in the game and calls their methods
+// GameController is the master file which has control of the flow in the game and calls their methods
 // Steven Kingston 26/06/15
   
 $(document).ready(function(){
@@ -20,14 +20,15 @@ $(document).ready(function(){
 	function Initialise()	{
 	  createKineticArea();
 		LoadMainMenu();
-		player = new Player(2000);
-		SetupSound();
+		player = new Player(2000); // create our player stats when we start as only need one player created
+		SetupSound(); // Start to load the sound
 	}
-	
+	// Loads the Title screen UI Drawer Function
 	function LoadMainMenu(){
 			TitleScreen();
 	}
 	
+	//Switches between the canvas and menu UI and Creates new racers
 	function LoadBettingMenu(){
 		$('#canvas').hide();
 		$('#container').show();
@@ -35,8 +36,8 @@ $(document).ready(function(){
 		BettingScreen(racers,player);
 	}
 	
+	//Add focus to the canvas game and start the race with current racers by running the logic loop
 	function StartRace(){
-		//racers = GenerateRacers(12,canvasWidth,canvasHeight);
 		//PlayRaceMusic("music");
 		$('#container').hide();
 		$('#canvas').show();
@@ -46,34 +47,25 @@ $(document).ready(function(){
 		
 	}
 	
-		//When we want to stop the game do it here
+		//Stop the Game Logic by changing the bool statement and load up the Beting screen 
 	function StopGame(){
 		running = false;
-		Reset();
+		LoadBettingMenu();
 	}
 	
-	function Reset(){
-			LoadBettingMenu();
-	}
-	
+	//The function that gets called every second which tells the racers to call the update function
 	function UpdateGame()	{
 			UpdateActors(racers);
 	}
 	
-	function ExitGame()
-	{
-		StopGame();
-		ShowMenu(context,canvasWidth,canvasHeight);
-	}
-	
-	// The main game loop - taken online
+	// The main game loop - researched online
 	function Main() {
 		if(running == true){
 			var now = Date.now();
 			var delta = now - then;
 
-			UpdateGame(delta / 1000);
-			RenderGame(context,racers);
+			UpdateGame(delta / 1000); // The actual Logic
+			RenderGame(context,racers); // The rendering of actors to the screen
 
 			then = now;
 

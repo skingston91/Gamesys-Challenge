@@ -42,7 +42,7 @@ function GenerateStats(statsRequired)
 }
 
 
-//Takes the actors stats and calculates how good they are
+//Takes the racers stats and calculates how good they are
 function CalculateStats(stats)
 {
 	//Sets the importance of each of the stats values - will add if I get chance
@@ -60,8 +60,7 @@ function CalculateStats(stats)
 	
 }
 
-// Takes a data structure of the actors and compares their values to each other to figure out likelihood of winning **
-
+// Should takes a data structure of the actors and compares their values to each other to figure out likelihood of winning **
 //For the moment we will do a simple if statement to check what we should say the odds are
 function CalculateOdds(racer)
 {
@@ -74,7 +73,7 @@ function CalculateOdds(racer)
 	if (racer.racerValue >= 0 && racer.racerValue < maxPossibleRacerValue/2 )
 	{
 		racer.oddsValue = 1.5;
-		racer.odds = "Eh?";
+		racer.odds = "Not so Good";
 	}
 	else
 	{
@@ -85,29 +84,25 @@ function CalculateOdds(racer)
 }
 
 // Makes a random number between one and maxRange
-//Currently Broken if we use this directly
-function CalculateRandomElement(maxRange)
-{
+function CalculateRandomElement(maxRange){
 	var randomNumber = Math.floor((Math.random() * maxRange) + 1);
 	return randomNumber;
 }
 
 // Adds a random value to the true stats 
-function CalculateTrueStats(racerValue)
-{
+function CalculateTrueStats(racerValue){
 	var randomValue = CalculateRandomElement(maxStatsRange); 
 	racerValue += randomValue;
 	return racerValue;
 }
 
-//Takes the Total actorsValue and then figures out its speed across the screen 
-function CalculateRacerSpeed(racerValue)
-{
+//Takes the Total RacerValue and then figures out its speed across the screen 
+function CalculateRacerSpeed(racerValue){
 	var speed = racerValue/100;
 	return speed;
 }
 
-//The method which runs through our actors and updates them
+//The method which runs through our actors and calls the update method
 function UpdateActors(listOfActors)
 {
 		 for(var i = 0; i < listOfActors.length; i++){
@@ -118,15 +113,13 @@ function UpdateActors(listOfActors)
 				{
 					StopGame();
 					soundManager.play("clap");
-					WinnerInformation(actor);
 					AddWinnings(actor);// pass the racer through to figure out winnings and then add to the player money
-					
+					WinnerInformation(actor);
 				}
   }
 }
 
 // Return Winner of the racer
-function ReturnWinner(racer)
-{
+function ReturnWinner(racer){
 	 return racer;
 }

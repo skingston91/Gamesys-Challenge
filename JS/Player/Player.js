@@ -1,6 +1,7 @@
-// This will control the player Object "class" and the function it needs 
+// This will control the player Object "class" and the functions it needs 
 //Steven Kingston 26/06/2015
 
+//Creates a player with starting money
 	function Player (startingMoney) {
 		this.money = startingMoney;
 		this.name = '';

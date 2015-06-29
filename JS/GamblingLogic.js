@@ -38,7 +38,7 @@ function AddWinnings(racer){
 	player.money += winnings;
 }
 
-function CalculateWinnings(racer)
-{
+//Calculate the winnings from the racer data
+function CalculateWinnings(racer){
 		return racer.currentBet * racer.oddsValue;
 }

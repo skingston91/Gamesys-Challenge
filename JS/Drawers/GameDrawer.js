@@ -1,4 +1,4 @@
-//This will deal with the rendering of the Game Assets on the canvas
+//This deals with the rendering of the Game Assets on the canvas
 //Steven Kingston 26/06/2015
 
 // Background image
@@ -17,7 +17,7 @@ racerImage.onload = function () {
 };
 racerImage.src = "Assets/Sprites/carSilver6_006.png";
 
-//This constantly Re-renders the gameUI over it's self then re renders the actors  
+//This constantly Re-renders the gameUI background over it's self then re renders the actors  
 function RenderGame(canvas,listOfActors)
 {
 		if (bgReady) {
