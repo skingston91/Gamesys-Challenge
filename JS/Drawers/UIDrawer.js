@@ -122,6 +122,10 @@ function GenerateMenuButton(Text,calledfunction,xPostion,yPostion)
 			calledfunction();
 		});
 		
+		text.on('mousedown', function() {
+			calledfunction();
+		});
+		
 		layer.add(rect);
 		layer.add(text);
 		stage.add(layer);
@@ -204,7 +208,7 @@ function GenerateRacerBetButton(racer,calledfunction,xPosition,yPosition,buttonT
 		var rect = new Kinetic.Rect({
 			x: xPosition,
 			y: yPosition,
-			width:50,
+			width:55,
 			height:50,
 			fill:'White',
 			stroke: 'Black',
@@ -222,22 +226,19 @@ function GenerateRacerBetButton(racer,calledfunction,xPosition,yPosition,buttonT
 			fill: 'black'
 		});
 		
-		var text = new Kinetic.Text({
-			x: rect.getX(),
-			y: rect.getY() + 15,
-			fontFamily: 'Calibri',
-			fontSize: 20,
-			width:rect.getWidth(),
-			align: 'center',
-			text: buttonText,
-			fill: 'black'
-		});
-		
 		rect.on('mousedown', function() {
 			calledfunction(racer);
 			createPlayerStatus();
 			BettingScreen(racers,player); // THIS IS REALLY TERRIBLE AS READDING and RE-DRAWING EVERYTHING
+			
 		});
+		
+		text.on('mousedown', function() {
+			calledfunction(racer);
+			createPlayerStatus();
+			BettingScreen(racers,player); // THIS IS REALLY TERRIBLE AS READDING and RE-DRAWING EVERYTHING
+		});
+		
 		layer.add(rect);
 		layer.add(text);
 		stage.add(layer);
@@ -245,13 +246,16 @@ function GenerateRacerBetButton(racer,calledfunction,xPosition,yPosition,buttonT
 }
 
 // Writes in Text on screen of the winner of the race
-function WinnerInformation(racer) 
-	{
+function WinnerInformation(racer) {
 		var value = CalculateWinnings(racer);
 		createText("Racer: "+ racer.name+ " Won",stage.width()/2 + 100,stage.height()/2,20)
 		if (racer.currentBet != 0)
 		{
 			createText("You got: £" + value,stage.width()/2 + 100,stage.height()/2 + 50,20)
 		}
-		//alert("Racer: "+ racer.name + " Won You got " + value);
 	}	
+	
+function ChangeUIButtonColor(rect,color)
+{
+	rect.setFill(color);
+}	

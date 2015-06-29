@@ -73,7 +73,7 @@ $(document).ready(function(){
 			}
 		else{
 				var sound = soundManager.getSoundById("music")
-				MuteOneSound(sound);
+				sound.stop();
 		}
 	};
 	

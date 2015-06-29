@@ -37,6 +37,6 @@ function MuteOneSound(sound){
 
 //Stop a specific sound from playing
 function StopSound(sound){
-	var sound = soundManager.getSoundById(music);
+	var sound = soundManager.getSoundById(sound);
 	sound.stop();
 }
