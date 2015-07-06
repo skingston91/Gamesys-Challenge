@@ -23,6 +23,9 @@ function GenerateRacers(amountOfRacers,canvasWidth,canvasHeight)
 		actor.racerValue = CalculateStats(actor.stats); // create the one value we will use eventually for the speed
 		CalculateOdds(actor);//figure out the racers chance of winning and add them to the actor
 		actor.speed = CalculateRacerSpeed(CalculateTrueStats(actor.racerValue));
+		imageArray = getRacerImageArray();
+		actor.image = imageArray[CalculateRandomElement(imageArray.length)];
+		//console.log(actor.image);
 		racers[i] = actor;
 		
   }
@@ -112,7 +115,7 @@ function UpdateActors(listOfActors)
 				if(actor.x <= 70)//(Currently Hard coded finish line
 				{
 					StopGame();
-					soundManager.play("clap");
+					//soundManager.play("clap");
 					AddWinnings(actor);// pass the racer through to figure out winnings and then add to the player money
 					WinnerInformation(actor);
 				}

@@ -20,6 +20,7 @@ $(document).ready(function(){
 	function Initialise()	{
 	  createKineticArea();
 		LoadMainMenu();
+		createRacerImageArray();
 		player = new Player(2000); // create our player stats when we start as only need one player created
 		SetupSound(); // Start to load the sound
 	}
@@ -38,7 +39,7 @@ $(document).ready(function(){
 	
 	//Add focus to the canvas game and start the race with current racers by running the logic loop
 	function StartRace(){
-		PlayRaceMusic("music");
+		//PlayRaceMusic("music");
 		$('#container').hide();
 		$('#canvas').show();
 		then = Date.now();

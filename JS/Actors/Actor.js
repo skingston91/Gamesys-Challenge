@@ -8,7 +8,7 @@ function Actor (x, y) {
 	this.height = 0; //The actors height, used for collision detection and rendering if no render method is used. *Unused Currently
 
 	this.color = '#000000'; //The color drawn if no other rendering method is used *Unused Currently
-
+	this.image = '';
 	this.name = ''; // Defined later using a name generator
 	this.stats = []; //Array Used to store the actors stats when created 
 	this.racerValue = 0; //Likelihood of winning the race
