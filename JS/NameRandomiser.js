@@ -23,10 +23,11 @@ var lastNameArray = ["Snicker", "Buffalo", "Gross", "Bubble", "Sheep",
 //Creates a random name using 3 arrays
 function findName(){
 		var firstName = randomNamePart(firstNameArray);
-		var middleName = randomNamePart(middleNameArray);
+		//var middleName = randomNamePart(middleNameArray);
 		var lastName = randomNamePart(lastNameArray);
 		
-		return firstName + " " + middleName + " " + lastName; 
+		//return firstName + " " + middleName + " " + lastName; 
+		return firstName + "  " + lastName; 
 		
 	}
 	

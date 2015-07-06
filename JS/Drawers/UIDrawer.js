@@ -162,6 +162,7 @@ function GenerateFullRacerArea(racer,xPosition,yPosition)
 // Will Generate an area to show the racer details - hopefully get time to add Image of racer
 function GenerateRacerArea(racer,xPosition,yPosition)
 	{
+		
 		var rect = new Kinetic.Rect({
 			x: xPosition,
 			y: yPosition,
@@ -183,6 +184,14 @@ function GenerateRacerArea(racer,xPosition,yPosition)
 			fill: 'black'
 		});
 		
+		var image = new Kinetic.Image({
+			x: rect.getX() + 5 ,
+			y: rect.getY() + 8,
+			image: racer.image,
+			width: 33,
+			height: 29
+		});
+		
 		odds = new Kinetic.Text({
 			x: rect.getX(),
 			y: rect.getY() + 30,
@@ -197,6 +206,7 @@ function GenerateRacerArea(racer,xPosition,yPosition)
 		
 		layer.add(rect);
 		layer.add(text);
+		layer.add(image);
 		layer.add(odds);
 		stage.add(layer);
 	
