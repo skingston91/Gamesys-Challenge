@@ -8,11 +8,14 @@
 	var canvasHeight = $("#canvas").height();
 	
 	var stage;
-	var layer;
+	var menuLayer;
+	var dynamicBettingLayer;
+	var baseBettingLayer;
 	var xPosition;
 	var yPosition;
 	var odds;
 	var playerStatText;
+	
 //This is the area we will be using for the UI 
 function createKineticArea()
 	{
@@ -21,33 +24,52 @@ function createKineticArea()
 					width: canvasWidth,
 					height: canvasHeight
 				});
-		layer = new Kinetic.Layer();
+		menuLayer = new Kinetic.Layer();
+		baseBettingLayer = new Kinetic.Layer();
+		dynamicBettingLayer = new Kinetic.Layer();
+		
 	} 	
 	
 //Create the Title Screen
 function TitleScreen() 
 	{
-		AddBorder();
-		createText("CBR",stage.width()/3+30,stage.height()/6,80);
-		createText("Crusty Burrito Racing",stage.width()/3-70,stage.height()/6 + 80,50);
+		AddBorder(menuLayer);
+		CreateText("CBR",stage.width()/3+30,stage.height()/6,80,menuLayer);
+		CreateText("Crusty Burrito Racing",stage.width()/3-70,stage.height()/6 + 80,50,menuLayer);
 		xPosition = stage.width()/3,
 		yPosition = stage.height()/2,
-		GenerateMenuButton("Start Game",LoadBettingMenu,xPosition,yPosition);
+		GenerateMenuButton("Start Game",LoadBettingMenu,xPosition,yPosition,menuLayer);
 		yPosition += 60;
 		//GenerateMenuButton("Mute",MuteCurrentSound,xPosition,yPosition);
 	}
 	
-	//Create the Betting function Screen by iterating through all the racers and creating the buttons for them
-	// Along with player information and Titles
+//Create the base of the betting screen for anything thats not dynamic
+function DrawBettingScreenBase()
+	{
+		AddBorder(baseBettingLayer);
+		CreateText("Betting Time",stage.width()/3,stage.height()/6,80,baseBettingLayer);
+		GenerateMenuButton("Start Race",StartRace,600,500,baseBettingLayer);
+		baseBettingLayer.draw();
+	}
+	
+//Create the Betting function Screen by iterating through all the racers and creating the buttons for them
+// Along with player information and Titles
 function BettingScreen(racers)
 	{
-		layer.removeChildren(); // Remove all the previous layers
-		layer.clear();
-		AddBorder();
+		stage.removeChildren(); // Remove all the previous layers
+		stage.clear();
+		DrawBettingScreenBase();
+		DrawDynamicBettingLayer();
+	}
+	
+//Function which draws any of the dynamic content on the page	
+function DrawDynamicBettingLayer()
+{
+		dynamicBettingLayer.removeChildren();
+		dynamicBettingLayer.clear();
 		var player = returnPlayer();
-		createText("Betting Time",stage.width()/3,stage.height()/6,80);
-		createPlayerStatus(player.money);
-		GenerateMenuButton("Start Race",StartRace,600,500);
+		CreatePlayerStatus(dynamicBettingLayer);
+		
 		var startXPosition = stage.width()/8;
 		var startYPosition = stage.height()/3; // Store the initial height of the column
 		var yPosition = startYPosition; // start position of the y 	
@@ -63,11 +85,10 @@ function BettingScreen(racers)
 			}
 			GenerateFullRacerArea(racer,xPosition,yPosition)
 		}
-		layer.draw();
-	}
-	
+		dynamicBettingLayer.draw();
+}	
 //Generic Method that gets called to add text on to the stage ready to be rendered
-function createText(value,xPosition,yPosition,size)
+function CreateText(value,xPosition,yPosition,size,layer)
 	{
 		var text = new Kinetic.Text({
 			x: xPosition,
@@ -83,7 +104,7 @@ function createText(value,xPosition,yPosition,size)
 	}
 
 // Adds a Border when called to the screen
-function AddBorder()
+function AddBorder(layer)
 {
 	var border = new Kinetic.Rect({
 		width: stage.getWidth(),
@@ -95,7 +116,7 @@ function AddBorder()
 		stage.add(layer);
 }
 // Will Generate a button with text which can call a function passed to it
-function GenerateMenuButton(Text,calledfunction,xPostion,yPostion)
+function GenerateMenuButton(menuText,calledfunction,xPostion,yPostion,layer)
 	{
 		var rect = new Kinetic.Rect({
 			x: xPostion,
@@ -114,7 +135,7 @@ function GenerateMenuButton(Text,calledfunction,xPostion,yPostion)
 			fontSize: 20,
 			width:rect.getWidth(),
 			align: 'center',
-			text: Text,
+			text: menuText,
 			fill: 'black'
 		});
 		
@@ -132,7 +153,7 @@ function GenerateMenuButton(Text,calledfunction,xPostion,yPostion)
 	
 	}
 //Create the text to show how much the player currently has
-function createPlayerStatus()
+function CreatePlayerStatus(layer)
 	{
 		layer.remove(playerStatText);
 		var player = returnPlayer();
@@ -152,17 +173,16 @@ function createPlayerStatus()
 //Generate Betting Area for the user including the buttons to bet
 function GenerateFullRacerArea(racer,xPosition,yPosition)
 	{
-			GenerateRacerArea(racer,xPosition,yPosition);
-			GenerateRacerBetButton(racer,IncrementBet,xPosition + 210,yPosition ,"Up")
-			GenerateRacerBetButton(racer,DecrecmentBet,xPosition + 270,yPosition,"Down")
-			createText("Bet: £" + racer.currentBet,xPosition + 340,yPosition + 10,20);
+			GenerateRacerArea(racer,xPosition,yPosition,dynamicBettingLayer);
+			GenerateRacerBetButton(racer,IncrementBet,xPosition + 210,yPosition ,"Up",dynamicBettingLayer)
+			GenerateRacerBetButton(racer,DecrecmentBet,xPosition + 270,yPosition,"Down",dynamicBettingLayer)
+			CreateText("Bet: £" + racer.currentBet,xPosition + 340,yPosition + 10,20,dynamicBettingLayer);
 			
 	}
 	
 // Will Generate an area to show the racer details - hopefully get time to add Image of racer
-function GenerateRacerArea(racer,xPosition,yPosition)
+function GenerateRacerArea(racer,xPosition,yPosition,layer)
 	{
-		
 		var rect = new Kinetic.Rect({
 			x: xPosition,
 			y: yPosition,
@@ -213,7 +233,7 @@ function GenerateRacerArea(racer,xPosition,yPosition)
 	}	
 	
 // These define the buttons for the buttons we use for increasing and decreasing betting 
-function GenerateRacerBetButton(racer,calledfunction,xPosition,yPosition,buttonText)
+function GenerateRacerBetButton(racer,calledfunction,xPosition,yPosition,buttonText,layer)
 {
 		var rect = new Kinetic.Rect({
 			x: xPosition,
@@ -238,15 +258,14 @@ function GenerateRacerBetButton(racer,calledfunction,xPosition,yPosition,buttonT
 		
 		rect.on('mousedown', function() {
 			calledfunction(racer);
-			createPlayerStatus();
-			BettingScreen(racers,player); // THIS IS REALLY TERRIBLE AS READDING and RE-DRAWING EVERYTHING
-			
+			CreatePlayerStatus(layer);
+			DrawDynamicBettingLayer();		
 		});
 		
 		text.on('mousedown', function() {
 			calledfunction(racer);
-			createPlayerStatus();
-			BettingScreen(racers,player); // THIS IS REALLY TERRIBLE AS READDING and RE-DRAWING EVERYTHING
+			CreatePlayerStatus(layer);
+			DrawDynamicBettingLayer();
 		});
 		
 		layer.add(rect);
@@ -258,10 +277,10 @@ function GenerateRacerBetButton(racer,calledfunction,xPosition,yPosition,buttonT
 // Writes in Text on screen of the winner of the race
 function WinnerInformation(racer) {
 		var value = CalculateWinnings(racer);
-		createText("Racer: "+ racer.name+ " Won",stage.width()/2 + 100,stage.height()/2,20)
+		CreateText("Racer: "+ racer.name+ " Won",stage.width()/2 + 100,stage.height()/2,20,dynamicBettingLayer)
 		if (racer.currentBet != 0)
 		{
-			createText("You got: £" + value,stage.width()/2 + 100,stage.height()/2 + 50,20)
+			CreateText("You got: £" + value,stage.width()/2 + 100,stage.height()/2 + 50,20,dynamicBettingLayer)
 		}
 	}	
 	
