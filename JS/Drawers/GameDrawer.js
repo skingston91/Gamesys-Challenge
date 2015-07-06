@@ -9,21 +9,6 @@ bgImage.onload = function () {
 };
 bgImage.src = "Assets/Backgrounds/background.png";
 
-// Racer image
-var imageReady = false;
-var actorImage = new Image();
-
-function loadImage(imageName)
-{
-	actorImage.onload = function () {
-		imageReady = true;
-	};
-	actorImage.src = "Assets/Sprites/" + imageName;
-	return actorImage;
-}
-
-
-
 //List of all our racers Images
 var racerImageArray = [];
 	
@@ -57,16 +42,22 @@ function createRacerImageArray()
 	addImageToArray("taxi_W.png",racerImageArray);
 }
 
+//We take the string and then on the load we turn it into an image and store that in its array
 function addImageToArray(imageName,array)
 {
-	image = loadImage(imageName);
-	array.push(image);
+	var imageObj = new Image();
+	imageObj.src = 'Assets/Sprites/' + imageName;
+	imageObj.onload = function() {
+		array.push(imageObj);
+	};
+	
 }
 
 function getRacerImageArray()
 {
 	return racerImageArray;
 }
+
 ////
 //This constantly Re-renders the gameUI background over it's self then re renders the actors  
 function RenderGame(canvas,listOfActors)
@@ -77,9 +68,17 @@ function RenderGame(canvas,listOfActors)
 		
 		for(i=0;i < listOfActors.length; i++){
 			var racer = listOfActors[i];
-			//loadImage(racer.image);
 				context.font = "12px Helvetica";
 				context.fillText(racer.name,racer.x -40,racer.y - 5);
-				canvas.drawImage(racer.image, racer.x, racer.y);
+				if(racer.image instanceof HTMLImageElement) // Just incase its not an image element
+				{
+					canvas.drawImage(racer.image, racer.x, racer.y);
+				}
+				else
+				{
+					console.log(racer.image);
+				}
+				
+				
 		}
 }
