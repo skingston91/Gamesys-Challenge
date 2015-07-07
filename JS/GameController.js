@@ -19,10 +19,12 @@ $(document).ready(function(){
 	//Initialise the game starting at the menu
 	function Initialise()	{
 	  createKineticArea();
-		LoadMainMenu();
-		createRacerImageArray();
+		CreateMenuBackgroundImageArray();
+		CreateRaceBackgroundImageArray();
+		CreateRacerImageArray();
 		player = new Player(2000); // create our player stats when we start as only need one player created
 		SetupSound(); // Start to load the sound
+		LoadMainMenu();
 	}
 	// Loads the Title screen UI Drawer Function
 	function LoadMainMenu(){

@@ -34,6 +34,8 @@ function createKineticArea()
 function TitleScreen() 
 	{
 		AddBorder(menuLayer);
+		var menuImageArray = GetMenuBackgroundImageArray()
+		AddImageBackground(menuImageArray[0],menuLayer);
 		CreateText("CBR",stage.width()/3+30,stage.height()/6,80,menuLayer);
 		CreateText("Crusty Burrito Racing",stage.width()/3-70,stage.height()/6 + 80,50,menuLayer);
 		xPosition = stage.width()/3,
@@ -43,10 +45,11 @@ function TitleScreen()
 		//GenerateMenuButton("Mute",MuteCurrentSound,xPosition,yPosition);
 	}
 	
-//Create the base of the betting screen for anything thats not dynamic
+//Create the base of the betting screen for anything that's not dynamic
 function DrawBettingScreenBase()
 	{
 		AddBorder(baseBettingLayer);
+		AddColourBackground("#24ECE3",menuLayer);
 		CreateText("Betting Time",stage.width()/3,stage.height()/6,80,baseBettingLayer);
 		GenerateMenuButton("Start Race",StartRace,600,500,baseBettingLayer);
 		baseBettingLayer.draw();
@@ -103,7 +106,7 @@ function CreateText(value,xPosition,yPosition,size,layer)
 		stage.add(layer);
 	}
 
-// Adds a Border when called to the screen
+// Adds a Border to that layer
 function AddBorder(layer)
 {
 	var border = new Kinetic.Rect({
@@ -115,6 +118,35 @@ function AddBorder(layer)
 		layer.add(border);
 		stage.add(layer);
 }
+
+// Adds a Background Colour to that layer
+function AddColourBackground(color,layer)
+{
+	var rect = new Kinetic.Rect({
+		width: stage.getWidth(),
+		height: stage.getHeight(),
+		fill: color,
+	});
+		layer.add(rect);
+		stage.add(layer);
+}
+
+// Adds a Background Colour to that layer
+function AddImageBackground(bgImage,layer)
+{
+	var image = new Kinetic.Image({
+			x: stage.getWidth(),
+			y: stage.getHeight(),
+			image: bgImage,
+			width: stage.getWidth(),
+			height: stage.getHeight()
+		});
+		
+		layer.add(image);
+		stage.add(layer);
+}
+
+
 // Will Generate a button with text which can call a function passed to it
 function GenerateMenuButton(menuText,calledfunction,xPostion,yPostion,layer)
 	{
@@ -146,6 +178,27 @@ function GenerateMenuButton(menuText,calledfunction,xPostion,yPostion,layer)
 		text.on('mousedown', function() {
 			calledfunction();
 		});
+		
+		rect.on('mouseover', function() {
+        ChangeUIButtonColor(rect,"#F0E37E");
+				layer.draw();
+      });
+			
+		text.on('mouseover', function() {
+        ChangeUIButtonColor(rect,"#F0E37E");
+				layer.draw();
+      });
+		
+		rect.on('mouseout', function() {
+        ChangeUIButtonColor(rect,"white");
+				layer.draw();
+      });
+			
+		text.on('mouseout', function() {
+        ChangeUIButtonColor(rect,"white");
+				layer.draw();
+      });
+		
 		
 		layer.add(rect);
 		layer.add(text);
@@ -260,6 +313,7 @@ function GenerateRacerBetButton(racer,calledfunction,xPosition,yPosition,buttonT
 			calledfunction(racer);
 			CreatePlayerStatus(layer);
 			DrawDynamicBettingLayer();		
+			
 		});
 		
 		text.on('mousedown', function() {
@@ -268,6 +322,26 @@ function GenerateRacerBetButton(racer,calledfunction,xPosition,yPosition,buttonT
 			DrawDynamicBettingLayer();
 		});
 		
+		rect.on('mouseover', function() {
+        ChangeUIButtonColor(rect,"#F0E37E");
+				layer.draw();
+      });
+			
+		text.on('mouseover', function() {
+        ChangeUIButtonColor(rect,"#F0E37E");
+				layer.draw();
+      });
+		
+		rect.on('mouseout', function() {
+        ChangeUIButtonColor(rect,"white");
+				layer.draw();
+      });
+			
+		text.on('mouseout', function() {
+        ChangeUIButtonColor(rect,"white");
+				layer.draw();
+      });
+			
 		layer.add(rect);
 		layer.add(text);
 		stage.add(layer);
@@ -284,7 +358,7 @@ function WinnerInformation(racer) {
 		}
 	}	
 	
-function ChangeUIButtonColor(rect,color)
+function ChangeUIButtonColor(area,color)
 {
-	rect.setFill(color);
+	area.setFill(color);
 }	

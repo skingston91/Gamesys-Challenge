@@ -23,7 +23,7 @@ function GenerateRacers(amountOfRacers,canvasWidth,canvasHeight)
 		actor.racerValue = CalculateStats(actor.stats); // create the one value we will use eventually for the speed
 		CalculateOdds(actor);//figure out the racers chance of winning and add them to the actor
 		actor.speed = CalculateRacerSpeed(CalculateTrueStats(actor.racerValue));
-		imageArray = getRacerImageArray();
+		imageArray = GetRacerImageArray();
 		actor.image = imageArray[CalculateRandomElement(imageArray.length -1)];
 		racers[i] = actor;
 		

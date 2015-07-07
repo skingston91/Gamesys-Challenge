@@ -6,7 +6,9 @@ function SetupSound()
 {
 	soundManager.setup({
   url: '/JS/ExternalFiles/soundmanager2-jsmin.js',
+	debugMode: false,// Turn off debug output
   onready: function() {
+		
    soundManager.createSound({
       id: 'clap',
       url: '../GamesysChallenge/Assets/Sounds/clap.wav'
